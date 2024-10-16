@@ -1,0 +1,258 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  background-color: black;
+}
+
+.transition-opacity {
+  transition: opacity 0.5s ease-in-out; /* Durasi transisi 0.5 detik */
+}
+
+.opacity-0 {
+  opacity: 0; /* Tidak terlihat */
+}
+
+.opacity-100 {
+  opacity: 1; /* Terlihat penuh */
+}
+
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    #ff5733,
+    #c70039,
+    #900c3f,
+    #581845
+  ); /* Ganti dengan warna gradien yang diinginkan */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-textb {
+  background: linear-gradient(
+    90deg,
+    #00aaff,
+    /* Light Blue */ #0056b3,
+    /* Blue */ #003366,
+    /* Dark Blue */ #001f33 /* Very Dark Blue */
+  ); /* Gradient from light blue to dark blue */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* CSS Gradient */
+.gradient-text1 {
+  background: linear-gradient(90deg, #ff5733, #ff8d1a, #005dff, #33b5ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* STARS START */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: star-move 5s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes star-move {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(10px) translateX(5px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.8;
+  }
+}
+/* STARS END */
+
+/* Change Color */
+@keyframes colorChange {
+  50% {
+    background: rgb(16, 156, 26);
+  }
+}
+
+.animate-colorChange {
+  animation: colorChange 2s infinite alternate; /* 3 seconds duration and infinite looping */
+  transition: background 0.5s ease; /* Optional: smooth transition on hover */
+}
+
+/* Change Color End */
+
+/* Comet Start */
+@keyframes fall {
+  0% {
+    transform: translateY(-100vh) translateX(100vw);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(-100vw);
+    opacity: 0;
+  }
+}
+
+.comet {
+  position: absolute;
+  width: 3px; /* Diameter of the comet dot */
+  height: 3px; /* Diameter of the comet dot */
+  background: rgba(255, 255, 255, 0.8); /* Dot color */
+  border-radius: 50%; /* Make it round */
+  animation: fall linear infinite;
+}
+
+.comet-trail {
+  position: absolute;
+  height: 2px; /* Adjust height for the comet trail */
+  background: rgba(255, 255, 255, 0.5); /* Trail color */
+  border-radius: 10px; /* Rounded edges */
+  transform: translateX(-50%); /* Center the trail */
+  opacity: 0.7;
+}
+
+.photo-frame {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  width: 300px; /* Adjust width as needed */
+  height: 200px; /* Adjust height as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Optional: add some background to the frame */
+  overflow: hidden;
+}
+
+.photo-frame img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover; /* Ensure image covers the frame */
+}
+
+/* Comet End */
+
+/* Shine Effect Start */
+.portfolio-section {
+  position: relative;
+  overflow: hidden;
+  background-color: #000; /* Background color to enhance star effect */
+}
+
+.portfolio-item:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.portfolio-item {
+  transition: transform 0.2s; /* Smooth transition effect */
+}
+
+/* Shine Efffect END */
+
+
+/* TRY */
+.glow-text {
+  text-shadow: 0 0 8px rgba(30, 144, 255, 0.8), 0 0 16px rgba(30, 144, 255, 0.6), 0 0 24px rgba(30, 144, 255, 0.5);
+  color: #ffffff;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 8px rgba(30, 144, 255, 0.8), 0 0 16px rgba(30, 144, 255, 0.6), 0 0 24px rgba(30, 144, 255, 0.5);
+  }
+  100% {
+    text-shadow: 0 0 12px rgba(30, 144, 255, 1), 0 0 24px rgba(30, 144, 255, 0.8), 0 0 36px rgba(30, 144, 255, 0.7);
+  }
+}
+
+/* TRY */
+
+.glow-text1 {
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 
+               0 0 10px rgba(255, 255, 255, 0.5),
+               0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+
+/* Glowing Text Effect */
+.glow-text {
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 
+               0 0 10px rgba(255, 255, 255, 0.6), 
+               0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+/* Scrollable certificate container */
+
+/* Try */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white; /* Change the color of the arrows */
+  font-size: 24px; /* Adjust the size of the arrows */
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: rgba(255, 255, 255, 0.8); /* Hover effect for the arrows */
+}
+
+/*  Try */
+
+
+/* Smooth  */
+html {
+  scroll-behavior: smooth;
+}
+/*  */
+
+.transition {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+@keyframes colorChange1 {
+  50% {
+    background: rgba(255, 255, 255, 0);
+  }
+}
+
+.animate-colorChange1 {
+  animation: colorChange1 2s infinite alternate; /* 3 seconds duration and infinite looping */
+  transition: background 0.5s ease; /* Optional: smooth transition on hover */
+}
+
+@keyframes colorChange2 {
+  50% {
+    background: rgba(255, 255, 255, 0);
+  }
+}
+
+.animate-colorChange2 {
+  animation: colorChange2 2s infinite alternate; /* 3 seconds duration and infinite looping */
+  transition: background 0.5s ease; /* Optional: smooth transition on hover */
+}
+
+@keyframes colorChange3 {
+  50% {
+    background: rgba(255, 255, 255, 0);
+  }
+}
+
+.animate-colorChange3 {
+  animation: colorChange2 2s infinite alternate; /* 3 seconds duration and infinite looping */
+  transition: background 0.5s ease; /* Optional: smooth transition on hover */
+}
