@@ -2,23 +2,23 @@ import React from "react";
 import { ReactTyped } from "react-typed";
 import Slideshow from "./Slideshow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faLinkedin } from "@fortawesome/free-brands-svg-icons"; // Import LinkedIn icon
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons"; // Import the email icon
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import CV from "../src/asset/cvup.pdf"; // Correct path to the PDF
 
 function Hero() {
   const handleDownload = () => {
-    const cvLink = "/path/to/your/cv.pdf"; // Replace with your actual CV path
     const link = document.createElement("a");
-    link.href = cvLink;
-    link.setAttribute("download", "Wilsen_Julius_CV.pdf"); // The name the file will have when downloaded
+    link.href = CV; // Use the imported PDF file directly
+    link.setAttribute("download", "Wilsen_Julius_CV.pdf"); // The name for the downloaded file
     document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
+    document.body.removeChild(link); // Cleanup after the click
   };
 
   return (
-    <div id = 'Home'
+    <div
+      id="Home"
       className="relative flex items-center h-screen font-Code font-bold overflow-hidden"
       style={{
         background:
@@ -27,7 +27,6 @@ function Hero() {
     >
       {/* Starry Night Background */}
       <div className="absolute inset-0">
-        {/* Limit to 100 stars for better performance */}
         {[...Array(100)].map((_, i) => (
           <div
             key={i}
@@ -39,13 +38,13 @@ function Hero() {
               "--random-speed": Math.random(),
               "--random-direction-x": Math.random() < 0.5 ? -1 : 1,
               "--random-direction-y": Math.random() < 0.5 ? -1 : 1,
-              willChange: "transform, opacity", // Optimize animations
+              willChange: "transform, opacity",
             }}
           />
         ))}
       </div>
 
-      {/* Text Section - Half of the page */}
+      {/* Text Section */}
       <div className="ml-16 w-1/2 p-10 z-10">
         <h2
           className="text-5xl font-bold text-white font-code"
@@ -70,7 +69,12 @@ function Hero() {
             backSpeed={50}
             loop
           />
-          <h2 className="text-xl font-medium mt-3" style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 500)" }}>Press The Button Below to Start Our Journey !</h2>
+          <h2
+            className="text-xl font-medium mt-3"
+            style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 500)" }}
+          >
+            Press The Button Below to Start Our Journey !
+          </h2>
         </h2>
 
         {/* CV Download Button */}
@@ -83,7 +87,7 @@ function Hero() {
         </button>
       </div>
 
-      {/* Slideshow Section - Half of the page */}
+      {/* Slideshow Section */}
       <div className="w-1/2 z-10">
         <Slideshow />
       </div>
@@ -91,7 +95,7 @@ function Hero() {
       {/* Social Media Icons Section */}
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex space-x-4">
         <a
-          href="https://www.linkedin.com/in/wilsen-julius" // Replace with your LinkedIn URL
+          href="https://www.linkedin.com/in/wilsen-julius"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-full transition duration-300 transform hover:scale-105"
@@ -99,7 +103,7 @@ function Hero() {
           <FontAwesomeIcon icon={faLinkedin} size="lg" />
         </a>
         <a
-          href="https://github.com/Williuss" // Replace with your GitHub URL
+          href="https://github.com/Williuss"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-12 h-12 bg-gray-800 text-white rounded-full transition duration-300 transform hover:scale-105"
@@ -107,7 +111,7 @@ function Hero() {
           <FontAwesomeIcon icon={faGithub} size="lg" />
         </a>
         <a
-          href="mailto:wilsen.wj@gmail.com" // Replace with your email
+          href="mailto:wilsen.wj@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-full transition duration-300 transform hover:scale-105"
@@ -116,7 +120,7 @@ function Hero() {
         </a>
       </div>
 
-      {/* Gradient Blur Block at the bottom */}
+      {/* Gradient Blur Block */}
       <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-black to-transparent backdrop-filter backdrop-blur-md"></div>
     </div>
   );

@@ -323,21 +323,21 @@ function Portfolio() {
             {/* Source Code and Live Demo Buttons */}
             <div className="mt-4 flex space-x-4">
               <a
-                href="https://github.com/resq"
+                href="https://github.com/Williuss/MyLaundry"
                 className="font-Code px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition duration-300 transform hover:scale-110 animate-colorChange1"
                 style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 3000)" }}
               >
                 Source Code
               </a>
               <a
-                href="https://guarjian.com"
+                href="https://williuss.github.io/MyLaundry/"
                 className="font-Code px-4 py-2 bg-green-600 text-white rounded shadow transition duration-300 transform hover:scale-110 animate-colorChange1"
                 style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 3000)" }}
               >
                 Live Demo
               </a>
               <a
-                href="https://figma.com" // Replace with your Figma link
+                href="https://www.figma.com/design/yIFWumIvWLes7nfavEVPaW/MyLaundry?node-id=4-243&t=r4VFbgqCTgJg9cjy-1" // Replace with your Figma link
                 className="font-Code ml-2 px-4 py-2 bg-purple-600 text-white rounded shadow transition duration-300 transform hover:scale-110 animate-colorChange1"
                 style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 3000)" }}
               >
@@ -366,14 +366,14 @@ function Portfolio() {
             <PortfolioIcons tech={["React", "Tailwind"]} />
             <div className="mt-4 flex space-x-4">
               <a
-                href="https://github.com/resq"
+                href="https://github.com/Williuss/Willius"
                 className="font-Code px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition duration-300 transform hover:scale-110 animate-colorChange1"
                 style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 3000)" }}
               >
                 Source Code
               </a>
               <a
-                href="https://guarjian.com"
+                href="#Home"
                 className="font-Code px-4 py-2 bg-green-600 text-white rounded shadow transition duration-300 transform hover:scale-110 animate-colorChange1"
                 style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 3000)" }}
               >
@@ -410,13 +410,6 @@ function Portfolio() {
               >
                 Source Code
               </a>
-              <a
-                href="https://guarjian.com"
-                className="font-Code px-4 py-2 bg-green-600 text-white rounded shadow transition duration-300 transform hover:scale-110 animate-colorChange1"
-                style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 3000)" }}
-              >
-                Live Demo
-              </a>
             </div>
           </div>
         </div>
@@ -442,7 +435,7 @@ function Portfolio() {
             <PortfolioIcons tech={["Python", "TensorFlow"]} />
             <div className="mt-4 flex space-x-4">
               <a
-                href="https://github.com/resq"
+                href="https://github.com/Williuss/Home-Assistant-Automation"
                 className="font-Code px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition duration-300 transform hover:scale-110 animate-colorChange1"
                 style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 3000)" }}
               >
@@ -473,7 +466,7 @@ function Portfolio() {
             <PortfolioIcons tech={["Python", "Scikit-learn"]} />
             <div className="mt-4 flex space-x-4">
               <a
-                href="https://github.com/resq"
+                href="https://github.com/Williuss/Tweets-Sentiment-Analysis"
                 className="font-Code px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition duration-300 transform hover:scale-110 animate-colorChange1"
                 style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 3000)" }}
               >
@@ -566,7 +559,7 @@ function Portfolio() {
             <PortfolioIcons tech={["Flutter", "Firebase", "Figma"]} />
             <div className="mt-4 flex space-x-4">
               <a
-                href="https://github.com/resq"
+                href="https://github.com/Williuss/ResQ"
                 className="font-Code px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition duration-300 transform hover:scale-110 animate-colorChange1"
                 style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 3000)" }}
               >
@@ -574,11 +567,11 @@ function Portfolio() {
               </a>
 
               <a
-                href="https://guarjian.com"
+                href="https://www.youtube.com/watch?v=9iF7tE6tk98"
                 className="font-Code px-4 py-2 bg-green-600 text-white rounded shadow transition duration-300 transform hover:scale-110 animate-colorChange1"
                 style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 3000)" }}
               >
-                Live Demo
+                Demo Video
               </a>
 
               <a
