@@ -116,13 +116,9 @@ function AboutMe() {
       </h1>
 
       {/* Content Section: Photo on the Left and Text on the Right */}
-      <div className="flex flex-col md:flex-row items-center justify-center z-10 mt-10 w-4/5 md:w-3/4 lg:w-2/3 space-x-8">
+      <div className={`flex flex-col md:flex-row items-center justify-center z-10 mt-10 w-4/5 md:w-3/4 lg:w-2/3 space-x-8 ${isMobile ? 'mt-6' : ''}`}>
         {/* Photo without Frame */}
-        <div
-          className={`${isMobile ? "w-48 h-48 mb-8" : "w-screen h-96 mb-8"}`}
-        >
-          {" "}
-          {/* Increased size for PC */}
+        <div className={`${isMobile ? "w-48 h-48 mb-8" : "w-screen h-96 mb-8"}`}>
           <img
             src={img8}
             alt="Wilsen Julius"
@@ -164,18 +160,20 @@ function AboutMe() {
         </div>
       </div>
 
-      {/* Glowing Quote */}
-      <div className="absolute bottom-16 text-center font-semibold z-10">
-        <p
-          className={`text-white ${isMobile ? "text-sm" : "text-xl"}`} // Change size based on mobile state
-          style={{
-            textShadow:
-              "0 0 20px rgba(255, 255, 255, 0.7), 0 0 30px rgba(0, 123, 255, 0.5)",
-          }}
-        >
-          "To Infinity and Beyond! - Buzz Lightyear"
-        </p>
-      </div>
+      {/* Glowing Quote - only render if not mobile */}
+      {!isMobile && (
+        <div className="absolute bottom-16 text-center font-semibold z-10">
+          <p
+            className={`text-white ${isMobile ? "text-sm" : "text-xl"}`} // Change size based on mobile state
+            style={{
+              textShadow:
+                "0 0 20px rgba(255, 255, 255, 0.7), 0 0 30px rgba(0, 123, 255, 0.5)",
+            }}
+          >
+            "To Infinity and Beyond! - Buzz Lightyear"
+          </p>
+        </div>
+      )}
 
       {/* Black Blur on Left and Right */}
       <div

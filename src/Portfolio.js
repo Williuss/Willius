@@ -34,19 +34,43 @@ function PortfolioIcons({ tech }) {
   return (
     <div className="flex space-x-4 mt-4">
       {/* Icons Mapping */}
-      {tech.includes("HTML") && <SiHtml5 size={30} className="text-orange-500" />}
+      {tech.includes("HTML") && (
+        <SiHtml5 size={30} className="text-orange-500" />
+      )}
       {tech.includes("CSS") && <SiCss3 size={30} className="text-blue-500" />}
-      {tech.includes("JavaScript") && <SiJavascript size={30} className="text-yellow-500" />}
-      {tech.includes("MySQL") && <SiMysql size={30} className="text-blue-900" />}
-      {tech.includes("Python") && <SiPython size={30} className="text-blue-500" />}
-      {tech.includes("TensorFlow") && <SiTensorflow size={30} className="text-orange-600" />}
-      {tech.includes("React") && <SiReact size={30} className="text-blue-500" />}
-      {tech.includes("Tailwind") && <SiTailwindcss size={30} className="text-teal-500" />}
-      {tech.includes("Flutter") && <SiFlutter size={30} className="text-blue-400" />}
-      {tech.includes("Firebase") && <SiFirebase size={30} className="text-yellow-500" />}
-      {tech.includes("Scikit-learn") && <SiScikitlearn size={30} className="text-orange-400" />}
-      {tech.includes("Streamlit") && <SiStreamlit size={30} className="text-pink-400" />}
-      {tech.includes("Figma") && <SiFigma size={30} className="text-pink-500" />}
+      {tech.includes("JavaScript") && (
+        <SiJavascript size={30} className="text-yellow-500" />
+      )}
+      {tech.includes("MySQL") && (
+        <SiMysql size={30} className="text-blue-900" />
+      )}
+      {tech.includes("Python") && (
+        <SiPython size={30} className="text-blue-500" />
+      )}
+      {tech.includes("TensorFlow") && (
+        <SiTensorflow size={30} className="text-orange-600" />
+      )}
+      {tech.includes("React") && (
+        <SiReact size={30} className="text-blue-500" />
+      )}
+      {tech.includes("Tailwind") && (
+        <SiTailwindcss size={30} className="text-teal-500" />
+      )}
+      {tech.includes("Flutter") && (
+        <SiFlutter size={30} className="text-blue-400" />
+      )}
+      {tech.includes("Firebase") && (
+        <SiFirebase size={30} className="text-yellow-500" />
+      )}
+      {tech.includes("Scikit-learn") && (
+        <SiScikitlearn size={30} className="text-orange-400" />
+      )}
+      {tech.includes("Streamlit") && (
+        <SiStreamlit size={30} className="text-pink-400" />
+      )}
+      {tech.includes("Figma") && (
+        <SiFigma size={30} className="text-pink-500" />
+      )}
     </div>
   );
 }
@@ -67,12 +91,18 @@ function Portfolio() {
       canvas.height = document.body.scrollHeight;
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
     if (!isMobile) {
-      const starColors = ["#ffffff", "#ffd700", "#00ff00", "#ff69b4", "#00ffff"];
+      const starColors = [
+        "#ffffff",
+        "#ffd700",
+        "#00ff00",
+        "#ff69b4",
+        "#00ffff",
+      ];
       for (let i = 0; i < numStars; i++) {
         stars.push({
           x: Math.random() * canvas.width,
@@ -571,7 +601,6 @@ function Portfolio() {
         </div>
 
         {/* Portfolio Item 2 */}
-        
       </div>
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-10"></div>
     </div>

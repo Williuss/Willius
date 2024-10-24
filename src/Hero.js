@@ -91,6 +91,13 @@ function Hero() {
         </div>
       )}
 
+      {/* Notification for Mobile Users */}
+      {isMobile && (
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 backdrop-blur-lg text-white p-3 rounded-md shadow-md z-20">
+          <strong>Announcement :</strong> This page is optimized for PC layout.
+        </div>
+      )}
+
       {/* Text Section - Adjusted for Mobile */}
       <div className={`ml-4 ${isMobile ? "w-2/3" : "w-1/2"} p-10 z-10`}>
         <h2
