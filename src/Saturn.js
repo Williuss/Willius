@@ -33,10 +33,7 @@ function Saturn() {
       // Set canvas size to cover the full document
       const resizeCanvas = () => {
         canvas.width = window.innerWidth;
-        canvas.height = Math.max(
-          window.innerHeight,
-          document.body.scrollHeight
-        );
+        canvas.height = Math.max(window.innerHeight, document.body.scrollHeight);
       };
 
       resizeCanvas();
@@ -119,55 +116,13 @@ function Saturn() {
     }
   }, [isMobile]); // Dependency on isMobile to control the star animation
 
-  // Function to render static stars for mobile devices
-  const renderStaticStars = () => {
-    const canvas = starsRef.current;
-    const context = canvas.getContext("2d");
-    const numStaticStars = 100; // Number of static stars
-
-    // Draw static stars
-    for (let i = 0; i < numStaticStars; i++) {
-      const x = Math.random() * canvas.width; // Random horizontal position
-      const y = Math.random() * canvas.height; // Random vertical position
-      const size = Math.random() * 2 + 0.5; // Size of the stars
-
-      context.fillStyle = "rgba(255, 255, 255, 0.8)";
-      context.beginPath();
-      context.arc(x, y, size, 0, 2 * Math.PI);
-      context.fill();
-    }
-  };
-
-  useEffect(() => {
-    if (isMobile) {
-      const canvas = starsRef.current;
-      const context = canvas.getContext("2d");
-      const resizeCanvas = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = Math.max(
-          window.innerHeight,
-          document.body.scrollHeight
-        );
-        renderStaticStars(); // Render static stars on resize
-      };
-      resizeCanvas();
-      window.addEventListener("resize", resizeCanvas);
-      renderStaticStars(); // Initial render of static stars
-
-      // Cleanup event listener
-      return () => {
-        window.removeEventListener("resize", resizeCanvas);
-      };
-    }
-  }, [isMobile]);
-
   return (
     <div
       className="portfolio-section relative w-full min-h-screen text-white py-16"
       style={{ backgroundColor: "rgba(0, 0, 20, 0.8)" }} // Dark blue color
     >
       {/* Background Falling Stars */}
-      <canvas ref={starsRef} className="absolute inset-0" />
+      {!isMobile && <canvas ref={starsRef} className="absolute inset-0" />}
 
       {/* Gradient Radial Background */}
       <div className="absolute inset-0">
@@ -219,11 +174,17 @@ function Saturn() {
       <img
         src={rocketImage}
         alt="Rocket"
-        className="absolute bottom-16 left-1/2 transform -translate-x-1/2 -translate-y-[60%] w-48 h-auto z-10" // Increased width from w-32 to w-48
+        className={`absolute bottom-16 left-1/2 transform -translate-x-1/2 ${
+          isMobile ? "-translate-y-28" : "-translate-y-[60%]"
+        } w-48 h-auto z-10`} // Adjust position on mobile
       />
 
       {/* Glowing Text */}
-      <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-xl font-semibold font-Code text-white z-10 glow-text">
+      <div
+        className={`absolute bottom-16 left-1/2 transform -translate-x-1/2 -translate-y-[60%] text-xl font-semibold font-Code text-white z-10 glow-text ${
+          isMobile ? 'text-center font-bold' : ''
+        }`}
+      >
         Let's take a moment to enjoy Saturn...
       </div>
 

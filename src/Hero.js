@@ -17,7 +17,7 @@ function Hero() {
     };
 
     window.addEventListener("resize", handleResize);
-    
+
     // Clean up on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -49,7 +49,7 @@ function Hero() {
     }
 
     // Clean up on component unmount
-    return () => setStars([]); 
+    return () => setStars([]);
   }, [isMobile]); // Dependency on isMobile to regenerate stars
 
   const handleDownload = () => {
@@ -92,9 +92,11 @@ function Hero() {
       )}
 
       {/* Text Section - Adjusted for Mobile */}
-      <div className={`ml-4 ${isMobile ? 'w-2/3' : 'w-1/2'} p-10 z-10`}>
+      <div className={`ml-4 ${isMobile ? "w-2/3" : "w-1/2"} p-10 z-10`}>
         <h2
-          className={`text-2xl ${isMobile ? 'text-3xl' : 'md:text-5xl'} font-bold text-white font-code`}
+          className={`text-2xl ${
+            isMobile ? "text-3xl mb-4" : "md:text-5xl"
+          } font-bold text-white font-code`} // Added mb-4 for mobile
           style={{
             textShadow:
               "4px 4px 12px rgba(0, 0, 0, 100), 2px 2px 4px rgba(0, 0, 0, 1)",
@@ -102,7 +104,12 @@ function Hero() {
         >
           Hi, It's Wilsen Julius
         </h2>
-        <h2 className={`text-lg ${isMobile ? 'text-xl' : 'md:text-3xl'} font-bold text-white`}>
+        <h2
+          className={`text-lg ${
+            isMobile ? "text-xl mb-2" : "md:text-3xl"
+          } font-bold text-white`}
+        >
+          {" "}
           I Am{" "}
           <ReactTyped
             className="gradient-text"
@@ -117,7 +124,9 @@ function Hero() {
             loop
           />
           <h2
-            className={`text-sm ${isMobile ? 'text-lg' : 'md:text-xl'} font-medium mt-3`}
+            className={`text-sm ${
+              isMobile ? "text-lg mt-4" : "md:text-xl"
+            } font-medium`} // Adjusted mt for mobile
             style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 500)" }}
           >
             Press The Button Below to Start Our Journey!
@@ -135,7 +144,7 @@ function Hero() {
       </div>
 
       {/* Slideshow Section - Adjusted for Mobile */}
-      <div className={`w-1/2 z-10 ${isMobile ? 'w-full' : 'w-1/2'}`}>
+      <div className={`w-1/2 z-10 ${isMobile ? "w-full" : "w-1/2"}`}>
         <Slideshow />
       </div>
 

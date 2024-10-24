@@ -8,71 +8,78 @@ function ContactMe() {
   const [message, setMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640); // Check if the current screen width is mobile size
 
   useEffect(() => {
-    const canvas = starsRef.current;
-    const context = canvas.getContext("2d");
-    const numStars = 100; // Number of stars to display
-    const stars = [];
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight; // Set canvas height to window height
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640); // Update the state on resize
     };
-    resizeCanvas();
 
-    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("resize", handleResize);
 
-    // Initialize star positions
-    for (let i = 0; i < numStars; i++) {
-      stars.push({
-        x: Math.random() * canvas.width, // Random horizontal position
-        y: Math.random() * (canvas.height / 2), // Random vertical position in the top half
-        speed: Math.random() * 2 + 1, // Star speed
-        size: Math.random() * 2 + 1, // Star size
-      });
+    if (!isMobile) { // Only initialize stars if not mobile
+      const canvas = starsRef.current;
+      const context = canvas.getContext("2d");
+      const numStars = 100; // Number of stars to display
+      const stars = [];
+
+      const resizeCanvas = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight; // Set canvas height to window height
+      };
+      resizeCanvas();
+
+      // Initialize star positions
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width, // Random horizontal position
+          y: Math.random() * (canvas.height / 2), // Random vertical position in the top half
+          speed: Math.random() * 2 + 1, // Star speed
+          size: Math.random() * 2 + 1, // Star size
+        });
+      }
+
+      // Update and draw stars
+      const updateStars = () => {
+        context.fillStyle = "rgba(0, 0, 10, 0.8)"; // Darker background color
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        stars.forEach((star) => {
+          // Move stars towards the center of the canvas
+          const targetX = canvas.width / 2; // Target x is the center of the canvas
+          const targetY = canvas.height / 1; // Target y is also the center of the canvas
+          const dx = targetX - star.x;
+          const dy = targetY - star.y;
+
+          // Calculate the angle towards the target
+          const angle = Math.atan2(dy, dx);
+          star.x += star.speed * Math.cos(angle); // Move towards target x
+          star.y += star.speed * Math.sin(angle); // Move towards target y
+
+          // If the star exceeds the canvas, reset its position
+          if (star.y > canvas.height) {
+            star.x = Math.random() * canvas.width; // Reset horizontal position
+            star.y = Math.random() * (canvas.height / 2); // Reset to the top half
+          }
+
+          // Draw the star
+          context.fillStyle = "rgba(255, 255, 255, 0.8)";
+          context.beginPath();
+          context.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
+          context.fill();
+        });
+
+        requestAnimationFrame(updateStars);
+      };
+
+      updateStars();
     }
-
-    // Update and draw stars
-    const updateStars = () => {
-      context.fillStyle = "rgba(0, 0, 10, 0.8)"; // Darker background color
-      context.fillRect(0, 0, canvas.width, canvas.height);
-
-      stars.forEach((star) => {
-        // Move stars towards the center of the canvas
-        const targetX = canvas.width / 2; // Target x is the center of the canvas
-        const targetY = canvas.height / 1; // Target y is also the center of the canvas
-        const dx = targetX - star.x;
-        const dy = targetY - star.y;
-
-        // Calculate the angle towards the target
-        const angle = Math.atan2(dy, dx);
-        star.x += star.speed * Math.cos(angle); // Move towards target x
-        star.y += star.speed * Math.sin(angle); // Move towards target y
-
-        // If the star exceeds the canvas, reset its position
-        if (star.y > canvas.height) {
-          star.x = Math.random() * canvas.width; // Reset horizontal position
-          star.y = Math.random() * (canvas.height / 2); // Reset to the top half
-        }
-
-        // Draw the star
-        context.fillStyle = "rgba(255, 255, 255, 0.8)";
-        context.beginPath();
-        context.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
-        context.fill();
-      });
-
-      requestAnimationFrame(updateStars);
-    };
-
-    updateStars();
 
     // Clean up event listener
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [isMobile]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -114,8 +121,8 @@ function ContactMe() {
       {/* Gradient Overlay at the Top */}
       <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black to-transparent backdrop-filter backdrop-blur-md z-10"></div>
 
-      {/* Falling Stars Canvas */}
-      <canvas ref={starsRef} className="absolute inset-0 z-0" />
+      {/* Falling Stars Canvas (only for non-mobile sizes) */}
+      {!isMobile && <canvas ref={starsRef} className="absolute inset-0 z-0" />}
 
       {/* Contact form and heading */}
       <h2

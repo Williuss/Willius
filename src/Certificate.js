@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -14,69 +14,85 @@ import Certificate6 from "./asset/Certi6.png";
 
 function Certificate() {
   const starsRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // Initial check for mobile
 
   useEffect(() => {
-    const canvas = starsRef.current;
-    const context = canvas.getContext("2d");
-    const numStars = 300;
-    const stars = [];
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resizeCanvas();
-
-    window.addEventListener("resize", resizeCanvas);
-
-    for (let i = 0; i < numStars; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        z: Math.random() * canvas.width,
-      });
-    }
-
-    const updateStars = () => {
-      context.fillStyle = "rgba(0, 0, 20, 0.8)"; // Darker background color
-      context.fillRect(0, 0, canvas.width, canvas.height);
-
-      stars.forEach((star) => {
-        star.z -= 2;
-        if (star.z <= 0) {
-          star.x = Math.random() * canvas.width;
-          star.y = Math.random() * canvas.height;
-          star.z = canvas.width;
-        }
-
-        const sx = (star.x - canvas.width / 2) * (canvas.width / star.z);
-        const sy = (star.y - canvas.height / 2) * (canvas.width / star.z);
-        const size = Math.max(0, 2 - star.z / canvas.width);
-
-        context.fillStyle = "white";
-        context.beginPath();
-        context.arc(
-          sx + canvas.width / 2,
-          sy + canvas.height / 2,
-          size,
-          0,
-          2 * Math.PI
-        );
-        context.fill();
-      });
-
-      requestAnimationFrame(updateStars);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Update mobile state on resize
     };
 
-    updateStars();
+    window.addEventListener("resize", handleResize);
+
+    // Clean up on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
+
+  useEffect(() => {
+    if (!isMobile) {
+      const canvas = starsRef.current;
+      const context = canvas.getContext("2d");
+      const numStars = 300;
+      const stars = [];
+
+      const resizeCanvas = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      };
+      resizeCanvas();
+
+      window.addEventListener("resize", resizeCanvas);
+
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          z: Math.random() * canvas.width,
+        });
+      }
+
+      const updateStars = () => {
+        context.fillStyle = "rgba(0, 0, 20, 0.8)"; // Darker background color
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        stars.forEach((star) => {
+          star.z -= 2;
+          if (star.z <= 0) {
+            star.x = Math.random() * canvas.width;
+            star.y = Math.random() * canvas.height;
+            star.z = canvas.width;
+          }
+
+          const sx = (star.x - canvas.width / 2) * (canvas.width / star.z);
+          const sy = (star.y - canvas.height / 2) * (canvas.width / star.z);
+          const size = Math.max(0, 2 - star.z / canvas.width);
+
+          context.fillStyle = "white";
+          context.beginPath();
+          context.arc(
+            sx + canvas.width / 2,
+            sy + canvas.height / 2,
+            size,
+            0,
+            2 * Math.PI
+          );
+          context.fill();
+        });
+
+        requestAnimationFrame(updateStars);
+      };
+
+      updateStars();
+    }
+  }, [isMobile]); // Depend on isMobile to control star effect rendering
 
   return (
     <section
       id="Certificate"
       className="relative flex flex-col justify-center items-center min-h-screen"
     >
-      <canvas ref={starsRef} className="absolute inset-0 z-0" />
+      {!isMobile && <canvas ref={starsRef} className="absolute inset-0 z-0" />} {/* Render stars only on PC */}
 
       {/* Gradient Block at the Top */}
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black to-transparent backdrop-filter backdrop-blur-md z-10"></div>
