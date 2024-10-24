@@ -55,7 +55,13 @@ function Certificate() {
 
         context.fillStyle = "white";
         context.beginPath();
-        context.arc(sx + canvas.width / 2, sy + canvas.height / 2, size, 0, 2 * Math.PI);
+        context.arc(
+          sx + canvas.width / 2,
+          sy + canvas.height / 2,
+          size,
+          0,
+          2 * Math.PI
+        );
         context.fill();
       });
 
@@ -67,7 +73,7 @@ function Certificate() {
 
   return (
     <section
-      id = "Certificate"
+      id="Certificate"
       className="relative flex flex-col justify-center items-center min-h-screen"
     >
       <canvas ref={starsRef} className="absolute inset-0 z-0" />
@@ -105,8 +111,8 @@ function Certificate() {
           grabCursor={true}
           centeredSlides={true}
           loop={true}
-          slidesPerView={2}
-          spaceBetween={20}
+          slidesPerView={1} // Set default for mobile view
+          spaceBetween={10} // Set space for mobile view
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
@@ -117,14 +123,14 @@ function Certificate() {
           breakpoints={{
             200: {
               slidesPerView: 1,
-              spaceBetween: 0,
+              spaceBetween: 10, // Smaller space on mobile
             },
             640: {
-              slidesPerView: 2,
-              spaceBetween: 30,
+              slidesPerView: 1, // Still 1 slide on mobile devices
+              spaceBetween: 20, // Increase space for slightly larger mobile screens
             },
             1024: {
-              slidesPerView: 2,
+              slidesPerView: 2, // Keep it 2 for tablets and larger
               spaceBetween: 40,
             },
           }}
@@ -185,30 +191,30 @@ function Certificate() {
       <style jsx>{`
         .swiper-button-next,
         .swiper-button-prev {
-          color: white; 
-          width: 60px; 
-          height: 60px; 
-          background-color: rgba(0, 0, 0, 0.7); 
-          border-radius: 50%; 
-          display: flex; 
+          color: white;
+          width: 60px;
+          height: 60px;
+          background-color: rgba(0, 0, 0, 0.7);
+          border-radius: 50%;
+          display: flex;
           align-items: center;
           justify-content: center;
-          margin-top: -20px; 
-          border: 2px solid rgba(255, 255, 255, 0.5); 
+          margin-top: -20px;
+          border: 2px solid rgba(255, 255, 255, 0.5);
         }
 
         .swiper-button-next {
-          right: 30px; 
+          right: 30px;
         }
 
         .swiper-button-prev {
-          left: 30px; 
+          left: 30px;
         }
 
         .swiper-button-next:hover,
         .swiper-button-prev:hover {
-          background-color: white; 
-          color: black; 
+          background-color: white;
+          color: black;
         }
       `}</style>
     </section>

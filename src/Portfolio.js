@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   SiHtml5,
   SiCss3,
@@ -33,73 +33,27 @@ import "./index.css";
 function PortfolioIcons({ tech }) {
   return (
     <div className="flex space-x-4 mt-4">
-      {/* HTML */}
-      {tech.includes("HTML") && (
-        <SiHtml5 size={30} className="text-orange-500" />
-      )}
-
-      {/* CSS */}
+      {/* Icons Mapping */}
+      {tech.includes("HTML") && <SiHtml5 size={30} className="text-orange-500" />}
       {tech.includes("CSS") && <SiCss3 size={30} className="text-blue-500" />}
-
-      {/* JavaScript */}
-      {tech.includes("JavaScript") && (
-        <SiJavascript size={30} className="text-yellow-500" />
-      )}
-
-      {/* MySQL */}
-      {tech.includes("MySQL") && (
-        <SiMysql size={30} className="text-blue-900" />
-      )}
-
-      {tech.includes("Python") && (
-        <SiPython size={30} className="text-blue-500" />
-      )}
-
-      {/* TensorFlow */}
-      {tech.includes("TensorFlow") && (
-        <SiTensorflow size={30} className="text-orange-600" />
-      )}
-
-      {/* React */}
-      {tech.includes("React") && (
-        <SiReact size={30} className="text-blue-500" />
-      )}
-
-      {/* Tailwind */}
-      {tech.includes("Tailwind") && (
-        <SiTailwindcss size={30} className="text-teal-500" />
-      )}
-
-      {/* Flutter */}
-      {tech.includes("Flutter") && (
-        <SiFlutter size={30} className="text-blue-400" />
-      )}
-
-      {/* Firebase */}
-      {tech.includes("Firebase") && (
-        <SiFirebase size={30} className="text-yellow-500" />
-      )}
-
-      {/* Scikit-learn */}
-      {tech.includes("Scikit-learn") && (
-        <SiScikitlearn size={30} className="text-orange-400" />
-      )}
-
-      {/* Streamlit */}
-      {tech.includes("Streamlit") && (
-        <SiStreamlit size={30} className="text-pink-400" />
-      )}
-
-      {/* Figma */}
-      {tech.includes("Figma") && (
-        <SiFigma size={30} className="text-pink-500" />
-      )}
+      {tech.includes("JavaScript") && <SiJavascript size={30} className="text-yellow-500" />}
+      {tech.includes("MySQL") && <SiMysql size={30} className="text-blue-900" />}
+      {tech.includes("Python") && <SiPython size={30} className="text-blue-500" />}
+      {tech.includes("TensorFlow") && <SiTensorflow size={30} className="text-orange-600" />}
+      {tech.includes("React") && <SiReact size={30} className="text-blue-500" />}
+      {tech.includes("Tailwind") && <SiTailwindcss size={30} className="text-teal-500" />}
+      {tech.includes("Flutter") && <SiFlutter size={30} className="text-blue-400" />}
+      {tech.includes("Firebase") && <SiFirebase size={30} className="text-yellow-500" />}
+      {tech.includes("Scikit-learn") && <SiScikitlearn size={30} className="text-orange-400" />}
+      {tech.includes("Streamlit") && <SiStreamlit size={30} className="text-pink-400" />}
+      {tech.includes("Figma") && <SiFigma size={30} className="text-pink-500" />}
     </div>
   );
 }
 
 function Portfolio() {
   const starsRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     const canvas = starsRef.current;
@@ -111,25 +65,28 @@ function Portfolio() {
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = document.body.scrollHeight;
+      setIsMobile(window.innerWidth <= 768);
     };
+    
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    const starColors = ["#ffffff", "#ffd700", "#00ff00", "#ff69b4", "#00ffff"];
-    for (let i = 0; i < numStars; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 1 + 0.5,
-        brightness: Math.random(),
-        changeRate: Math.random() * 0.02 + 0.01,
-        color: starColors[Math.floor(Math.random() * starColors.length)],
-        time: Math.random() * Math.PI * 2,
-      });
+    if (!isMobile) {
+      const starColors = ["#ffffff", "#ffd700", "#00ff00", "#ff69b4", "#00ffff"];
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 1 + 0.5,
+          brightness: Math.random(),
+          changeRate: Math.random() * 0.02 + 0.01,
+          color: starColors[Math.floor(Math.random() * starColors.length)],
+          time: Math.random() * Math.PI * 2,
+        });
+      }
     }
 
     const gradientColors = ["rgba(0, 0, 139, 0.3)", "rgba(138, 43, 226, 0.3)"];
-
     for (let i = 0; i < 100; i++) {
       gradients.push({
         x: Math.random() * canvas.width,
@@ -153,30 +110,31 @@ function Portfolio() {
         );
         radialGradient.addColorStop(0, gradient.color);
         radialGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-
         context.fillStyle = radialGradient;
         context.beginPath();
         context.arc(gradient.x, gradient.y, gradient.radius, 0, 2 * Math.PI);
         context.fill();
       });
 
-      stars.forEach((star) => {
-        star.time += star.changeRate;
-        star.brightness = (Math.sin(star.time) + 1) / 2;
+      if (!isMobile) {
+        stars.forEach((star) => {
+          star.time += star.changeRate;
+          star.brightness = (Math.sin(star.time) + 1) / 2;
 
-        context.fillStyle = `rgba(255, 255, 255, ${star.brightness * 0.4})`;
-        context.beginPath();
-        context.arc(star.x, star.y, star.size * 2, 0, 2 * Math.PI);
-        context.fill();
+          context.fillStyle = `rgba(255, 255, 255, ${star.brightness * 0.4})`;
+          context.beginPath();
+          context.arc(star.x, star.y, star.size * 2, 0, 2 * Math.PI);
+          context.fill();
 
-        context.fillStyle = `rgba(${star.color
-          .match(/\w\w/g)
-          .map((c) => parseInt(c, 16))
-          .join(",")}, ${star.brightness})`;
-        context.beginPath();
-        context.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
-        context.fill();
-      });
+          context.fillStyle = `rgba(${star.color
+            .match(/\w\w/g)
+            .map((c) => parseInt(c, 16))
+            .join(",")}, ${star.brightness})`;
+          context.beginPath();
+          context.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
+          context.fill();
+        });
+      }
 
       requestAnimationFrame(updateStars);
     };
@@ -186,14 +144,13 @@ function Portfolio() {
     return () => {
       window.removeEventListener("resize", resizeCanvas);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div
       id="Portfolio"
       className="portfolio-section relative w-full min-h-screen text-white py-16"
     >
-      {/* Twinkling Stars Background */}
       <canvas ref={starsRef} className="absolute inset-0" />
       <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black to-transparent backdrop-filter backdrop-blur-md z-10"></div>
 
@@ -204,8 +161,6 @@ function Portfolio() {
         >
           Portfolio
         </h1>
-
-        {/* Portfolio Item 1 */}
         <div className="portfolio-item flex flex-col md:flex-row items-center justify-center mb-12">
           <div className="portfolio-image md:w-2/5 p-4">
             <img
@@ -614,6 +569,9 @@ function Portfolio() {
             </div>
           </div>
         </div>
+
+        {/* Portfolio Item 2 */}
+        
       </div>
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-10"></div>
     </div>

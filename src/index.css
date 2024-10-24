@@ -256,3 +256,42 @@ html {
   animation: colorChange2 2s infinite alternate; /* 3 seconds duration and infinite looping */
   transition: background 0.5s ease; /* Optional: smooth transition on hover */
 }
+
+/* small phone size */
+/* index.css */
+/* index.css */
+@media only screen and (max-width: 768px) {
+  .portfolio-section {
+    padding: 16px; /* Optionally reduce padding */
+  }
+
+  .portfolio-image {
+    width: 100%; /* Full width for images */
+    max-width: 70%; /* Reduce max width for images */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .portfolio-description {
+    text-align: left; /* Align text to the left for consistency */
+    padding: 0; /* Remove padding */
+  }
+
+  h1 {
+    font-size: 24px; /* Smaller main title */
+  }
+
+  h2 {
+    font-size: 16px; /* Smaller project title */
+  }
+
+  p {
+    font-size: 12px; /* Smaller project description */
+  }
+
+  .font-Code {
+    font-size: 12px; /* Smaller button text */
+  }
+}
+
+
+/* small phone size  */

@@ -1,101 +1,165 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./index.css"; // Assuming you will create a CSS file for styling
 import rocketImage from "./asset/Rocket.png"; // Import the rocket image
 
 function Saturn() {
   const starsRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // Initial check for mobile
 
   useEffect(() => {
-    // Create falling star effect
-    const canvas = starsRef.current;
-    const context = canvas.getContext("2d");
-    const numStarsLeft = 100; // Reduced number of stars on the left
-    const numStarsRight = 400; // Reduced number of stars on the right
-    const stars = [];
-    const diagonalStars = []; // Array for diagonal stars
-
-    // Set canvas size to cover the full document
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = Math.max(window.innerHeight, document.body.scrollHeight);
+    // Handle window resize to check for mobile
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
     };
 
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("resize", handleResize);
 
-    // Initialize star positions from the lower half of the page
-    for (let i = 0; i < numStarsLeft; i++) {
-      stars.push({
-        x: canvas.width, // Start from the right
-        y: Math.random() * (canvas.height / 2) + canvas.height / 2 - 2600, // Appear from the lower half
-        speed: Math.random() * 2 + 0.5, // Speed of the stars
-        size: Math.random() * 2 + 0.5, // Size of the stars
-      });
-    }
-
-    // Initialize diagonal stars
-    for (let i = 0; i < numStarsRight; i++) {
-      diagonalStars.push({
-        x: Math.random() * canvas.width + canvas.width, // Start from outside right
-        y: Math.random() * (canvas.height / 2) - 100, // Appear from above
-        speed: Math.random() * 2 + 0.5, // Speed of the stars
-        size: Math.random() * 2 + 0.5, // Size of the stars
-      });
-    }
-
-    // Update and draw stars
-    let frameCount = 0; // Initialize frame count
-    const updateStars = () => {
-      if (frameCount % 2 === 0) { // Update every other frame
-        context.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Draw stars from below
-        stars.forEach((star) => {
-          star.x -= star.speed; // Move left
-          star.y += star.speed * -0.8; // Move slightly down
-
-          // Reset star position if it goes beyond the left canvas
-          if (star.x < 0) {
-            star.x = canvas.width; // Reset to right
-            star.y = Math.random() * (canvas.height / 2) + canvas.height / 2 - 1600; // Random vertical position in the lower half
-          }
-
-          // Draw the star
-          context.fillStyle = "rgba(255, 255, 255, 0.8)";
-          context.beginPath();
-          context.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
-          context.fill();
-        });
-
-        // Draw stars from the top right
-        diagonalStars.forEach((star) => {
-          star.x -= star.speed; // Move left
-          star.y += star.speed * 0.65; // More pronounced downward movement
-
-          // Reset star when it reaches the center of the page
-          if (star.x < canvas.width / 2) {
-            star.x = Math.random() * canvas.width + canvas.width; // Reset to outside right
-            star.y = Math.random() * (canvas.height / 2); // Reset to random position above
-          }
-
-          // Draw diagonal star
-          context.fillStyle = "rgba(255, 255, 255, 0.8)";
-          context.beginPath();
-          context.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
-          context.fill();
-        });
-      }
-      frameCount++;
-      requestAnimationFrame(updateStars);
-    };
-
-    updateStars();
-
-    // Cleanup event listener
+    // Clean up on component unmount
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isMobile) {
+      // Create falling star effect only if not mobile
+      const canvas = starsRef.current;
+      const context = canvas.getContext("2d");
+      const numStarsLeft = 100; // Reduced number of stars on the left
+      const numStarsRight = 400; // Reduced number of stars on the right
+      const stars = [];
+      const diagonalStars = []; // Array for diagonal stars
+
+      // Set canvas size to cover the full document
+      const resizeCanvas = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = Math.max(
+          window.innerHeight,
+          document.body.scrollHeight
+        );
+      };
+
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      // Initialize star positions from the lower half of the page
+      for (let i = 0; i < numStarsLeft; i++) {
+        stars.push({
+          x: canvas.width, // Start from the right
+          y: Math.random() * (canvas.height / 2) + canvas.height / 2 - 2600, // Appear from the lower half
+          speed: Math.random() * 2 + 0.5, // Speed of the stars
+          size: Math.random() * 2 + 0.5, // Size of the stars
+        });
+      }
+
+      // Initialize diagonal stars
+      for (let i = 0; i < numStarsRight; i++) {
+        diagonalStars.push({
+          x: Math.random() * canvas.width + canvas.width, // Start from outside right
+          y: Math.random() * (canvas.height / 2) - 100, // Appear from above
+          speed: Math.random() * 2 + 0.5, // Speed of the stars
+          size: Math.random() * 2 + 0.5, // Size of the stars
+        });
+      }
+
+      // Update and draw stars
+      let frameCount = 0; // Initialize frame count
+      const updateStars = () => {
+        if (frameCount % 2 === 0) {
+          // Update every other frame
+          context.clearRect(0, 0, canvas.width, canvas.height);
+
+          // Draw stars from below
+          stars.forEach((star) => {
+            star.x -= star.speed; // Move left
+            star.y += star.speed * -0.8; // Move slightly down
+
+            // Reset star position if it goes beyond the left canvas
+            if (star.x < 0) {
+              star.x = canvas.width; // Reset to right
+              star.y =
+                Math.random() * (canvas.height / 2) + canvas.height / 2 - 1600; // Random vertical position in the lower half
+            }
+
+            // Draw the star
+            context.fillStyle = "rgba(255, 255, 255, 0.8)";
+            context.beginPath();
+            context.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
+            context.fill();
+          });
+
+          // Draw stars from the top right
+          diagonalStars.forEach((star) => {
+            star.x -= star.speed; // Move left
+            star.y += star.speed * 0.65; // More pronounced downward movement
+
+            // Reset star when it reaches the center of the page
+            if (star.x < canvas.width / 2) {
+              star.x = Math.random() * canvas.width + canvas.width; // Reset to outside right
+              star.y = Math.random() * (canvas.height / 2); // Reset to random position above
+            }
+
+            // Draw diagonal star
+            context.fillStyle = "rgba(255, 255, 255, 0.8)";
+            context.beginPath();
+            context.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
+            context.fill();
+          });
+        }
+        frameCount++;
+        requestAnimationFrame(updateStars);
+      };
+
+      updateStars();
+
+      // Cleanup event listener
+      return () => {
+        window.removeEventListener("resize", resizeCanvas);
+      };
+    }
+  }, [isMobile]); // Dependency on isMobile to control the star animation
+
+  // Function to render static stars for mobile devices
+  const renderStaticStars = () => {
+    const canvas = starsRef.current;
+    const context = canvas.getContext("2d");
+    const numStaticStars = 100; // Number of static stars
+
+    // Draw static stars
+    for (let i = 0; i < numStaticStars; i++) {
+      const x = Math.random() * canvas.width; // Random horizontal position
+      const y = Math.random() * canvas.height; // Random vertical position
+      const size = Math.random() * 2 + 0.5; // Size of the stars
+
+      context.fillStyle = "rgba(255, 255, 255, 0.8)";
+      context.beginPath();
+      context.arc(x, y, size, 0, 2 * Math.PI);
+      context.fill();
+    }
+  };
+
+  useEffect(() => {
+    if (isMobile) {
+      const canvas = starsRef.current;
+      const context = canvas.getContext("2d");
+      const resizeCanvas = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = Math.max(
+          window.innerHeight,
+          document.body.scrollHeight
+        );
+        renderStaticStars(); // Render static stars on resize
+      };
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+      renderStaticStars(); // Initial render of static stars
+
+      // Cleanup event listener
+      return () => {
+        window.removeEventListener("resize", resizeCanvas);
+      };
+    }
+  }, [isMobile]);
 
   return (
     <div

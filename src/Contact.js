@@ -85,10 +85,10 @@ function ContactMe() {
 
     emailjs
       .send(
-        "YOUR_SERVICE_ID", // Replace with your EmailJS service ID
-        "YOUR_TEMPLATE_ID", // Replace with your EmailJS template ID
+        "service_luspkhp", // Replace with your EmailJS service ID
+        "template_vlur8yw", // Replace with your EmailJS template ID
         templateParams,
-        "YOUR_USER_ID" // Replace with your EmailJS user ID
+        "dUOddxS7Z4dSin84D" // Replace with your EmailJS user ID
       )
       .then((response) => {
         console.log("Email sent successfully:", response);
