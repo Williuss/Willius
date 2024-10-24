@@ -9,6 +9,7 @@ import CV from "../src/asset/cvup.pdf";
 function Hero() {
   const [stars, setStars] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // Initial check for mobile
+  const [showAnnouncement, setShowAnnouncement] = useState(true); // State for announcement visibility
 
   useEffect(() => {
     // Handle window resize to check for mobile
@@ -52,6 +53,16 @@ function Hero() {
     return () => setStars([]);
   }, [isMobile]); // Dependency on isMobile to regenerate stars
 
+  // Effect to hide announcement after 8 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowAnnouncement(false);
+    }, 8000);
+
+    // Clean up timer on component unmount
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = CV;
@@ -92,7 +103,7 @@ function Hero() {
       )}
 
       {/* Notification for Mobile Users */}
-      {isMobile && (
+      {isMobile && showAnnouncement && (
         <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 backdrop-blur-lg text-white p-3 rounded-md shadow-md z-20">
           <strong>Announcement :</strong> This page is optimized for PC layout.
         </div>
@@ -101,20 +112,15 @@ function Hero() {
       {/* Text Section - Adjusted for Mobile */}
       <div className={`ml-4 ${isMobile ? "w-2/3" : "w-1/2"} p-10 z-10`}>
         <h2
-          className={`text-2xl ${
-            isMobile ? "text-3xl mb-4" : "md:text-5xl"
-          } font-bold text-white font-code`} // Added mb-4 for mobile
+          className={`text-2xl ${isMobile ? "text-3xl mb-4" : "md:text-5xl"} font-bold text-white font-code`} // Added mb-4 for mobile
           style={{
-            textShadow:
-              "4px 4px 12px rgba(0, 0, 0, 100), 2px 2px 4px rgba(0, 0, 0, 1)",
+            textShadow: "4px 4px 12px rgba(0, 0, 0, 100), 2px 2px 4px rgba(0, 0, 0, 1)",
           }}
         >
           Hi, It's Wilsen Julius
         </h2>
         <h2
-          className={`text-lg ${
-            isMobile ? "text-xl mb-2" : "md:text-3xl"
-          } font-bold text-white`}
+          className={`text-lg ${isMobile ? "text-xl mb-2" : "md:text-3xl"} font-bold text-white`}
         >
           {" "}
           I Am{" "}
@@ -131,9 +137,7 @@ function Hero() {
             loop
           />
           <h2
-            className={`text-sm ${
-              isMobile ? "text-lg mt-4" : "md:text-xl"
-            } font-medium`} // Adjusted mt for mobile
+            className={`text-sm ${isMobile ? "text-lg mt-4" : "md:text-xl"} font-medium`} // Adjusted mt for mobile
             style={{ textShadow: "0px 0px 15px rgba(255, 255, 255, 500)" }}
           >
             Press The Button Below to Start Our Journey!
